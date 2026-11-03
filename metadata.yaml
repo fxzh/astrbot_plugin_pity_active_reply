@@ -1,9 +1,19 @@
 name: astrbot_plugin_pity_active_reply
-desc: 保底递增式主动回复：连续未插话时概率逐条升高，一旦主动回复或被 @ 被动回复即重置，避免刷屏与长期沉默两个极端
-help: |
-  使用前必须：关闭原生「主动回复」开关（本插件完全接管，双重开启会一条消息回两次），
-  并保持「群聊上下文感知」本身开启（本插件依赖其群聊记录注入）。
-  概率公式 p = min(base_prob + increment × 连续未插话条数, max_prob)，可选硬保底与冷清清零。
+display_name: 保底递增式主动回复
+short_desc: 连续没插话时主动回复概率逐条升高，插话或被 @ 即重置，告别刷屏与长期沉默
+desc: 保底递增式主动回复：替代原生主动回复的纯概率抽签，每条未唤醒 bot 的群消息按 p = min(base_prob + increment × 连续未插话条数, max_prob) 抽签，抽中主动插话或被 @ 被动回复后概率重置回初始值。概率三参数、硬保底条数、冷清清零、群白名单均可在 WebUI 插件配置中调整，无需改代码
+help: '使用前必须关闭原生「主动回复」（WebUI → 配置 → 其他配置 → 群聊上下文感知 → 主动回复 → 关闭，否则一条消息会被回复两次），并保持「群聊上下文感知」本身开启（本插件依赖其群聊记录注入）。概率参数在 WebUI → 插件管理 → 本插件 → 配置 中修改，保存后重载插件生效。'
 version: v1.0.1
 author: "fengxue"
 repo: https://github.com/fxzh/astrbot_plugin_pity_active_reply
+social_link: https://github.com/fxzh
+astrbot_version: ">=4.29.0"
+category: 聊天
+support_platforms:
+  - qq_official
+  - aiocqhttp
+tags:
+  - 主动回复
+  - 保底
+  - 群聊
+  - 概率递增
