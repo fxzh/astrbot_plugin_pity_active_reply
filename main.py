@@ -23,10 +23,10 @@ except ImportError:
 
 @register(
     "astrbot_plugin_pity_active_reply",
-    "97857",
+    "fengxue",
     "保底递增式主动回复：连续未插话时概率逐条升高，一旦主动回复或被 @ 被动回复即重置，"
     "避免原生纯概率「某段时间一直接话、某段时间从不接话」的两个极端",
-    "1.0.0",
+    "1.0.1",
 )
 class PityActiveReply(Star):
     def __init__(self, context: Context, config: AstrBotConfig = None):
@@ -55,7 +55,8 @@ class PityActiveReply(Star):
         hard = int(self._cfg("hard_pity_count", 0) or 0)
         if hard > 0 and misses >= hard:
             return 1.0
-        return min(max(base + increment * misses, 0.0), max(cap, base))
+        # 钳制到 [0, 1]：防止误配置（如 base_prob 填成 5）导致 p>1 每条必回
+        return min(max(base + increment * misses, 0.0), max(cap, base), 1.0)
 
     def _get_state(self, umo: str) -> dict:
         st = self._state.get(umo)
