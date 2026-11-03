@@ -1,0 +1,45 @@
+{
+  "enable": {
+    "description": "总开关",
+    "type": "bool",
+    "default": true,
+    "hint": "使用前必须关闭原生主动回复（WebUI → 配置 → 其他配置 → 群聊上下文感知 → 主动回复开关 → 关闭），否则同一消息可能被回复两次。群聊上下文感知本身的开关请保持开启。"
+  },
+  "base_prob": {
+    "description": "初始概率（刚回复过/被@重置后的起步概率）",
+    "type": "float",
+    "default": 0.05,
+    "hint": "每条未唤醒 bot 的群消息都按当前概率抽签；建议保持低值（如 0.02~0.08），刷屏感主要由递增和上限控制"
+  },
+  "increment": {
+    "description": "每次未插话后概率增量",
+    "type": "float",
+    "default": 0.03,
+    "hint": "连续 N 条没插话时概率 = 初始概率 + 增量 × N（封顶前）。越大越「忍不住」，0 则退化为固定概率（等于原生行为）"
+  },
+  "max_prob": {
+    "description": "概率上限",
+    "type": "float",
+    "default": 0.4,
+    "hint": "递增后的封顶值，避免连续插话过密。默认参数(0.05+0.03N, 上限0.4)下约 88% 在 10 条内、99% 在 20 条内会主动插话一次"
+  },
+  "hard_pity_count": {
+    "description": "硬保底条数（0=关闭）",
+    "type": "int",
+    "default": 0,
+    "hint": "连续 N 条未插话后，下一条必定主动回复（抽签概率视为 100%），类似抽卡保底。0 = 不启用，仅靠概率上限自然保证"
+  },
+  "decay_minutes": {
+    "description": "群冷清清零阈值（分钟，0=关闭）",
+    "type": "int",
+    "default": 0,
+    "hint": "两条群消息间隔超过该值时，保底计数先归零再抽签（群冷了一夜后不带着高概率「扑」向第一句话）。0 = 不启用"
+  },
+  "whitelist": {
+    "description": "群白名单",
+    "type": "list",
+    "default": [],
+    "items": {"type": "string"},
+    "hint": "留空 = 所有群生效。可填群号、QQ 官方群的 group openid、或完整 umo（umo 可在日志 [pity_active_reply] 触发行中查看）"
+  }
+}

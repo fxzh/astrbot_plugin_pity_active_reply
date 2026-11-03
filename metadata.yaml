@@ -1,0 +1,9 @@
+name: astrbot_plugin_pity_active_reply
+desc: 保底递增式主动回复：连续未插话时概率逐条升高，一旦主动回复或被 @ 被动回复即重置，避免刷屏与长期沉默两个极端
+help: |
+  使用前必须：关闭原生「主动回复」开关（本插件完全接管，双重开启会一条消息回两次），
+  并保持「群聊上下文感知」本身开启（本插件依赖其群聊记录注入）。
+  概率公式 p = min(base_prob + increment × 连续未插话条数, max_prob)，可选硬保底与冷清清零。
+version: v1.0.0
+author: "fengxue"
+repo: https://github.com/
