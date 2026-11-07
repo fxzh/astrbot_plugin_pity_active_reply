@@ -5,12 +5,7 @@ from astrbot.api.event import AstrMessageEvent, filter
 from astrbot.api.message_components import Image, Json, Plain
 from astrbot.api.star import Context, Star, register
 
-try:
-    from astrbot.api import logger
-except Exception:
-    import logging
-
-    logger = logging.getLogger("astrbot")
+from astrbot.api import logger
 
 try:  # 兼容不同版本的 AstrBot
     from astrbot.api import AstrBotConfig
