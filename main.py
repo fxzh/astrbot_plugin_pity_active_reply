@@ -21,7 +21,7 @@ except ImportError:
     "fengxue",
     "保底递增式主动回复：连续未插话时概率逐条升高，一旦主动回复或被 @ 被动回复即重置，"
     "避免原生纯概率「某段时间一直接话、某段时间从不接话」的两个极端",
-    "1.0.1",
+    "1.0.2",
 )
 class PityActiveReply(Star):
     def __init__(self, context: Context, config: AstrBotConfig = None):
